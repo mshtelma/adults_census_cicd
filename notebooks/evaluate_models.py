@@ -1,18 +1,4 @@
 # Databricks notebook source
-import os
-
-import pandas as pd
-import numpy as np
-
-import matplotlib.pyplot as plt
-import seaborn as sns
-
-import mlflow
-import mlflow.sklearn
-import databricks.automl
-
-# COMMAND ----------
-
 import mlflow
 import mlflow.lightgbm
 from  mlflow.tracking import MlflowClient
