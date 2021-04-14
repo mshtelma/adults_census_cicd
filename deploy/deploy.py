@@ -23,7 +23,8 @@ new_cluster_config = """
 
 existing_cluster_id = '0414-075331-angle420'
 notebook_path = '/Repos/michael.shtelma@databricks.com/adults_census_cicd/integration_tests/test'
-repo_id="3060587884715710"
+cicd_repo_id="3060587884715710"
+prod_repo_id="3060587884717352"
 
 # COMMAND ----------
 
@@ -38,7 +39,7 @@ config = EnvironmentVariableConfigProvider().get_config()
 api_client = _get_api_client(config, command_name="cicdtemplates-")
 
 # Let's update our Repo to the latest git revision
-res = api_client.perform_query('PATCH','/repos/{repo_id}'.format(repo_id=repo_id), {"branch":"master"})
+res = api_client.perform_query('PATCH','/repos/{repo_id}'.format(repo_id=cicd_repo_id), {"branch":"master"})
 print(res)
 
 #Now we can run our intergration test job
@@ -61,6 +62,9 @@ while True:
         time.sleep(5)
         
 assert result_state == "SUCCESS"
+
+if result_state == "SUCCESS":
+  api_client.perform_query('PATCH','/repos/{repo_id}'.format(repo_id=prod_repo_id), {"branch":"master"})
 
 # COMMAND ----------
 
