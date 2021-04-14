@@ -1,15 +1,4 @@
 # Databricks notebook source
-#%pip install databricks_cli
-
-# COMMAND ----------
-
-#import os
-#databricks_token = dbutils.notebook.entry_point.getDbutils().notebook().getContext().apiToken().getOrElse(None) 
-#os.environ['DATABRICKS_HOST'] = 'https://e2-demo-west.cloud.databricks.com/'
-#os.environ['DATABRICKS_TOKEN'] = databricks_token
-
-# COMMAND ----------
-
 new_cluster_config = """
 {
     "spark_version": "8.1.x-scala2.12",
