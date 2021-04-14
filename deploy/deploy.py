@@ -49,15 +49,18 @@ notebook_task = {'notebook_path': notebook_path}
 res = jobs_service.submit_run(run_name="xxx", existing_cluster_id=existing_cluster_id,  notebook_task=notebook_task, )
 run_id = res['run_id']
 print(run_id)
+result_state = None
 while True:
     status = jobs_service.get_run(run_id)
     print(status)
     result_state = status["state"].get("result_state", None)
     if result_state:
         print(result_state)
-        assert result_state == "SUCCESS"
+        break
     else:
         time.sleep(5)
+        
+assert result_state == "SUCCESS"
 
 # COMMAND ----------
 
