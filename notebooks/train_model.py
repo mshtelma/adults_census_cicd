@@ -84,10 +84,6 @@ X_train, X_test, Y_train, Y_test = train_test_split(pdDf.drop([target], axis=1),
 
 # COMMAND ----------
 
-luate_
-
-# COMMAND ----------
-
 # DBTITLE 1,Training LightGBM Model
 from mlflow.models.signature import infer_signature
 import lightgbm as lgb
