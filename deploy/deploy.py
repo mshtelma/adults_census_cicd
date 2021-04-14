@@ -1,4 +1,15 @@
 # Databricks notebook source
+#%pip install databricks_cli
+
+# COMMAND ----------
+
+#import os
+#databricks_token = dbutils.notebook.entry_point.getDbutils().notebook().getContext().apiToken().getOrElse(None) 
+#os.environ['DATABRICKS_HOST'] = 'https://e2-demo-west.cloud.databricks.com/'
+#os.environ['DATABRICKS_TOKEN'] = databricks_token
+
+# COMMAND ----------
+
 new_cluster_config = """
 {
     "spark_version": "8.1.x-scala2.12",
@@ -9,8 +20,10 @@ new_cluster_config = """
     "num_workers": 2
 }
 """
+
 existing_cluster_id = '0414-075331-angle420'
 notebook_path = '/Repos/michael.shtelma@databricks.com/adults_census_cicd/integration_tests/test'
+repo_id="3060587884715710"
 
 # COMMAND ----------
 
@@ -23,6 +36,12 @@ from databricks_cli.sdk import JobsService
 
 config = EnvironmentVariableConfigProvider().get_config()
 api_client = _get_api_client(config, command_name="cicdtemplates-")
+
+# Let's update our Repo to the latest git revision
+res = api_client.perform_query('PATCH','/repos/{repo_id}'.format(repo_id=repo_id), {"branch":"master"})
+print(res)
+
+#Now we can run our intergration test job
 jobs_service = JobsService(api_client)
 
 notebook_task = {'notebook_path': notebook_path}
@@ -39,3 +58,7 @@ while True:
         assert result_state == "SUCCESS"
     else:
         time.sleep(5)
+
+# COMMAND ----------
+
+
