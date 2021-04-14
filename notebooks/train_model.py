@@ -30,7 +30,6 @@ import seaborn as sns
 
 import mlflow
 import mlflow.sklearn
-import databricks.automl
 
 # COMMAND ----------
 
