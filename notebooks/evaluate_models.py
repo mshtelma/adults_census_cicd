@@ -69,8 +69,8 @@ def evaluate_all_candidate_models():
                                                      stage="Production")
         print('Deployed version: ', model_version.version)
     # remove candidate tags
-    #for run_id in cand_run_ids:
-    #    mlflow_client.set_tag(run_id, 'candidate', 'false')
+    for run_id in cand_run_ids:
+        mlflow_client.set_tag(run_id, 'candidate', 'false')
 
 def get_best_model(run_ids, X, Y):
     best_metric = -1
