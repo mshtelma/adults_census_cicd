@@ -94,7 +94,8 @@ number_of_explained_examples = 6
 with mlflow.start_run(run_name="lightgbm") as run:
 
   params = {"num_leaves": 32, "objective": "regression", "metric": "rmse", "num_rounds":100}
-  num_rounds = 40
+  num_rounds = 80
+  print('number of ro')
   
   train_lgb_dataset = lgb.Dataset(X_train, label=Y_train.values)
   test_lgb_dataset = lgb.Dataset(X_test, label=Y_test.values)
